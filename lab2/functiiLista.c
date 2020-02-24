@@ -131,5 +131,32 @@ int sameElem(TLista l1,TLista l2)
   return 1;
 }
 
+int elim(TLista *l,int *nr,int ref)
+{
+  TLista p,aux=NULL,prev;
+  *nr=0;
+  int elem=nrElem(*l);
+  for(p=*l,prev=NULL;p!=NULL;p=p->urm)
+  {
+    if(p->info >= ref)
+    {
+      if(prev==NULL)
+        {*l=p->urm;
+          aux=p;
+          free(aux);
+        }
+      else
+      {
+        prev->urm=p->urm;
+        aux=p;
+        free(aux);
+      }
+      *nr++;
+    }
+    else
+      prev=p;
 
+  }
+return 1;
+}
 
