@@ -160,3 +160,94 @@ int elim(TLista *l,int *nr,int ref)
 return 1;
 }
 
+TLista insertCom(TLista *rez,TLista l1,TLista l2)
+{ 
+  *rez=NULL;
+  TLista p=NULL,aux,last;
+
+  for(; l1!=NULL || l2!=NULL;)
+  {
+    if(l1->info < l2->info)
+      l1=l1->urm;
+    else
+      {
+        if(l1->info > l2->info)
+        l2=l2->urm;
+        else if(l1->info == l2->info)
+        {
+        aux=AlocCelula(l1->info);
+        if(!aux)
+        return 0;
+        if(!p)
+        {p=aux;
+        *rez=p;
+        }
+        else
+        p->urm = aux;
+        l1=l1->urm;
+        l2=l2->urm;
+      }
+   }
+}
+  return *rez;
+}
+
+TLista copie(TLista l)
+{
+  TLista p,ultim,aux,r;
+  r=NULL;
+  for(p=l;p!=NULL; p=p->urm)
+  {
+    aux=AlocCelula(p->info);
+    if(!aux)
+      return r;
+    if(!r)
+      {r=aux;
+      ultim = aux;
+      }
+    else
+    {
+      ultim->urm=aux;
+      ultim=aux;
+    }
+
+  }
+return r;
+}
+
+TLista mutare(TLista *l)
+{
+ TLista p,ant,aux,r,ultim;
+
+ for(p = *l,ant = NULL,r = NULL ; p != NULL ; )
+ {
+  if(p->info % 2 ==1)
+  {
+    ant = p;
+    p = p->urm;
+  }
+  else
+  { 
+    if(!r)
+    {
+      r=p;
+      ultim=p;
+    }
+    else
+    {
+      ultim->urm = p;
+      ultim = p;
+    }
+    if(ant)
+      ant->urm = p->urm;
+    else
+      ant=p;
+
+    p = p->urm;
+
+  }
+ 
+ }
+ return r;
+
+}
