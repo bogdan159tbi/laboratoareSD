@@ -21,7 +21,7 @@ TLista CitireL(int *lg)     /* construieste lista cu elemente citite */
 }
 
 int main ()
-{ TLista x = NULL,y=NULL;     /* Lista prelucrata */
+{ TLista x = NULL,y=NULL,z=NULL;     /* Lista prelucrata */
   int lx;           /* lungime lista */
   int app=0;
   int ly;
@@ -30,30 +30,13 @@ int main ()
     /* citeste si afiseaza lista */
     printf("\nIntroduceti valori elemente terminate cu valoare nenumerica:\n");
     x = CitireL(&lx);
-    y = CitireL(&ly);
     if(!x) continue;
-    if(!y) continue;
-
     /* apeluri functii implementate */
-
-    perechi(x);
     
-    int ok=checkHalf(x);
-    printf("jumatatile au nr egal\n");
-    
-    ok=sameElem(x,y);
-    if(ok)
-      printf("same elements\n");
-    
-    printf("list before\n");
-    AfisareL(x);
-    printf("\n");
-    printf("list after duplicate \n");
-    x=insertAfterRef(&x,2);
-    
+    deleteAll(&x, 2);
     AfisareL(x);
     DistrugeL(&x);
-    DistrugeL(&y);
+
     printf ("\n  Inca un test ? [d/n]");
     if (getchar() == 'n') break;
   }

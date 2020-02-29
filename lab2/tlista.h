@@ -24,8 +24,17 @@ void AfisareL (TLista L);
 TLista deleteElem(TLista *l,int ref);
 void perechi(TLista l);
 void sortList(TLista *l);
-void swap(struct celula *l1,struct celula *l2);
 int nrElem(TLista l);
 int checkHalf(TLista l);
 int sameElem(TLista l1,TLista l2);
+int elim(TLista *l,int *nr,int ref);
+int insertCom(TLista *rez,TLista l1,TLista l2);
+TLista mutare(TLista *l);
+TLista copie(TLista l);
+TLista ordonat(TLista *l);
+void sort(TLista *l);
+void swap(int *a , int *b);
+void deleteAll(TLista *l,int x);
+
+
 #endif
