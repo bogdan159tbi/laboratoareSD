@@ -49,9 +49,28 @@ TLista insertAfterRef(TLista *l,int ref)
       p=p->urm;
     }
   }
-
-return *l;
 }
+TLista insereaza(TLista *l,int elem)
+{
+  TLista p=*l,aux;
+  if(*l == NULL)
+  {
+     aux=AlocCelula(elem);
+     if(!aux)
+      return 0;
+    *l=aux;
+    return *l;
+  }
+  for(;p->urm != NULL;p = p->urm);
+
+  aux=AlocCelula(elem);
+  if(!aux)
+    return 0;
+  p->urm = aux;
+  aux ->urm = NULL;
+  return *l;
+}
+
 int prim(int nr)
 {
   int i=2;
@@ -248,16 +267,26 @@ void sort(TLista *l)
 TLista mutare(TLista *l)
 {
  TLista p,ant,aux,r,ultim;
+ int poz = 1;
 
- for(p = *l,ant = NULL,r = NULL ; p != NULL ; )
+ for(p = *l,ant = NULL,r = NULL ; p != NULL ;poz++ )
  {
-  if(p->info % 2 ==1)
+  if( p->info % 2 == 1 )
   {
     ant = p;
     p = p->urm;
   }
-  else
+  else if( poz % 2 && p->info % 2 ==0)
   { 
+    if(ant){
+      ant->urm = p->urm;
+    }
+    else
+      {
+        *l = (*l)->urm;
+        ant = *l;
+      }
+
     if(!r)
     {
       r=p;
@@ -270,10 +299,8 @@ TLista mutare(TLista *l)
       ultim = p;
       ultim->urm = NULL;
     }
-    if(ant)
-      ant->urm = p->urm;
-
-    p = p->urm;
+     p = ant->urm;
+     
 
   }
  
@@ -305,5 +332,242 @@ void deleteAll(TLista *l,int x)
     
     l2 = l2->urm;
   }
+
+}
+
+
+TLista Copie(TLista l)
+{
+  TLista new=NULL,aux;
+  for( ; l != NULL; l = l->urm)
+  {
+    if(prim(l->info))
+      insereaza(&new,l->info);
+  }
+  return new;
+}
+
+int distanceToPrime(int nr)
+{
+  int left,right;
+  left = nr-1;
+  right = nr + 1;
+  while(left > 1)
+  {
+    if(prim(left))
+      break;
+    left--;
+  }
+  while( !prim(right) )
+    right++;
+  int d1,d2;
+  d1 = nr - left;
+  d2 = right - nr;
+
+  if(d1<d2)
+    d1 = d1;
+  else if(d1 > d2)
+    d1 = d2;
+  return d1;
+}
+
+TLista CopyClosestPrime(TLista l1,TLista l2)
+{
+
+  TLista rez=NULL,aux,ultim;
+
+  while(l1 != NULL || l2 != NULL) 
+  {
+    if(!l1 || !l2)
+      break;
+    if(prim(l1->info) || prim(l2->info)){
+      if(prim(l1->info))
+      {
+        aux = AlocCelula(l1->info);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+      }
+      else if(prim(l2->info))
+      {
+         aux = AlocCelula(l2->info);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+        
+      }
+
+    }
+      else
+      {
+        int nr;
+        int d1 = distanceToPrime(l1->info);
+        int d2 = distanceToPrime(l2->info);
+        if(d1 < d2)
+          nr = l1->info;
+        else
+          nr = l2->info;
+
+         aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+      }
+      l1 = l1->urm;
+      l2 = l2->urm;
+  }
+
+
+  
+  if(l1){
+    printf("lista l1 nu e gata\n");
+  while(l1 != NULL){
+    int nr = l1->info;
+     
+
+    l1 = l1->urm;
+  }
+}
+  if(l2){
+    printf("l2 nu e gata\n");
+  while(l2 != NULL)
+    {
+    int nr = l2->info;
+     aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+     l2 = l2->urm;
+    }
+
+  }
+
+  return rez;
+}
+
+TLista reuniune(TLista l1,TLista l2)
+{
+  TLista aux,rez = NULL,ultim;
+  int nr;
+
+  while( l1 != NULL || l2 != NULL)
+  {
+
+    if(!l1 || !l2)
+      break;
+    if(l1->info < l2->info)
+    {
+      nr = l1->info;
+      aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+      l1 = l1->urm;
+      }
+    else
+    { 
+      nr = l2->info;
+      aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+      if(l1->info == l2->info)
+      {
+        l1 = l1->urm;
+        l2 = l2->urm;
+      }
+      else
+        l2 = l2->urm;
+    }
+
+  }
+  
+  while( l1 != NULL)
+  {
+
+     nr = l1->info;
+     aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+
+      l1 = l1->urm;
+  }
+  while( l2 != NULL)
+  {
+    nr = l2->info;
+    int nr = l2->info;
+     aux = AlocCelula(nr);
+        if(!aux)
+          return 0;
+        if(!rez)
+        {rez = aux;
+         ultim = rez; 
+        }
+        else
+        {
+          ultim->urm = aux;
+          ultim = ultim->urm;
+        }
+    l2 = l2->urm;
+  }
+
+  return rez;
 
 }

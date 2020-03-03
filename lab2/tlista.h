@@ -24,6 +24,7 @@ void AfisareL (TLista L);
 TLista deleteElem(TLista *l,int ref);
 void perechi(TLista l);
 void sortList(TLista *l);
+TLista insereaza(TLista *l,int elem);
 int nrElem(TLista l);
 int checkHalf(TLista l);
 int sameElem(TLista l1,TLista l2);
@@ -35,6 +36,12 @@ TLista ordonat(TLista *l);
 void sort(TLista *l);
 void swap(int *a , int *b);
 void deleteAll(TLista *l,int x);
+TLista CopyClosestPrime(TLista l1,TLista l2);
+TLista Copie(TLista l);
+int prim(int nr);
+int distanceToPrime(int nr);
+TLista reuniune(TLista l1,TLista l2);
+
 
 
 #endif

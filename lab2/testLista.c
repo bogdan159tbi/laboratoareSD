@@ -25,18 +25,57 @@ int main ()
   int lx;           /* lungime lista */
   int app=0;
   int ly;
+  TLista rez;
   for (;;)
   {
     /* citeste si afiseaza lista */
     printf("\nIntroduceti valori elemente terminate cu valoare nenumerica:\n");
-    x = CitireL(&lx);
-    if(!x) continue;
-    /* apeluri functii implementate */
     
-    deleteAll(&x, 2);
-    AfisareL(x);
-    DistrugeL(&x);
+    printf("task1\n");
+    x = CitireL(&lx);
 
+    if(!x) continue;
+   
+    rez = mutare(&x);
+    AfisareL(rez);
+    printf("\n");
+    AfisareL(x);
+    
+    
+    
+    printf("task2\n");
+
+    x = CitireL(&ly);
+    if(!x )
+      continue;
+
+    rez = Copie(x);
+    AfisareL(rez);
+
+
+
+    printf("task3\n");
+
+    x = CitireL(&lx);
+    y = CitireL(&ly);
+
+    if(!x) continue;
+    if(!y) continue;
+    rez = CopyClosestPrime(x,y);
+    AfisareL(rez);
+
+    printf("task4\n");
+    x = CitireL(&lx);
+    y = CitireL(&ly);
+
+    if(!x) continue;
+    if(!y) continue;
+
+    rez = reuniune(x,y);
+    AfisareL(rez);
+    DistrugeL(&rez);
+    DistrugeL(&x);
+    DistrugeL(&y);
     printf ("\n  Inca un test ? [d/n]");
     if (getchar() == 'n') break;
   }
