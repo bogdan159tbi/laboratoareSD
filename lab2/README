@@ -1,0 +1,12 @@
+aici e si lab 2 si 3
+
+Urmatoarele functii:-sterge fiecare aparitie
+		    -inserare sf sau inceput
+	            - sortare lista (un fel de bubble sort)
+		    -elem com dintre 2 liste
+ 		    -mutare anumite elem din l1 in l2
+		    -distruge lista(Free elem)
+		    - citire elem de la tastatura/afisare elem
+		    - mutare elem pare de pe pozitii impare intr o alta lista
+	            - copiere elem prime in alta lista
+		    - reununea a  2 liste ordonate 
