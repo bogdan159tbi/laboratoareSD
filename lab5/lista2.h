@@ -36,4 +36,11 @@ void *Elimina(TLDI s, void *ae,TFCmp cmp);/* delete elem that contains ae info a
 TLDI Muta(TLDI s);
 int simetrica(TLDI s);
 
+TLDI firstHalf(TLDI s);
+
+void deleteElem(TLDI s,int n);
+
+
+TLDI insert(int *lg,TFCmp);
+
 #endif
