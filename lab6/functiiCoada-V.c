@@ -1,6 +1,6 @@
 /*-- functiiCoada-V.c -- elementele cozii sunt memorate intr-un vector --*/
 #include "TCoada-V.h"
-
+#define MAX 256
 /* creeaza coada vida cu elemente de dimensiune d;
    este necesar si un al doilea parametru = numar maxim elemente in coada */
 void* InitQ(size_t d,...)
@@ -137,4 +137,52 @@ int ConcatQ(void *ad, void *as)
     	memcpy(SC(ad), IC(as), DIME(as));   /* muta element */
   	return 1;
 }
+int invC(void *coada)
+{
+	char *tmp = SC(coada),*p,*q;
+	if(tmp > (SV(coada)))
+		tmp = (char*)malloc(sizeof(DimEQ(coada)));
+	if(tmp == NULL)
+		return 0;
 
+	for(p = IC(coada), q = SC(coada) - DimEQ(coada);p < q; p += DimEQ(coada), q -= DimEQ(coada))
+	{
+		memcpy(tmp,p,DimEQ(coada));
+		memcpy(p,q,DimEQ(coada));
+		memcpy(q,tmp,DimEQ(coada));
+	}
+	
+	return 1;
+
+}
+
+
+void *oddID(void *queue,TF1 par)
+{
+	void *oddQ = InitQ(DimEQ(queue),MAX);
+	if(oddQ == NULL)
+		return NULL;
+	void *tmp = InitQ(DimEQ(queue),MAX);
+	if(!tmp)
+	{
+		free(oddQ);
+		return NULL;
+	}
+	void *adrElem = malloc(DimEQ(queue));
+	if (!adrElem)
+	{
+		free(tmp);
+		free(oddQ);
+		return NULL;
+	}
+	while (!VidaQ(queue))
+	{
+		ExtrQ(queue,adrElem);
+		if(par(adrElem) == 1)
+			IntrQ(oddQ,adrElem);
+		else
+			IntrQ(tmp,adrElem);
+	}
+	ConcatQ(queue,tmp);
+	return oddQ;
+}

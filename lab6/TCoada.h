@@ -1,3 +1,4 @@
+
 /*-- TCoada.h --- tipul coada ---*/
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,7 +14,7 @@
 
 #ifndef COADA
 #define COADA
-
+typedef int (*TFCmp)(void *adrElem,int ref);
 void* InitQ(size_t d,...); /* creeaza coada vida cu elemente de dimensiune d;
 							  anumite implementari pot necesita si alti parametri */
 int IntrQ(void* a, void* ae); /* adauga element la sfarsitul cozii */
@@ -26,6 +27,8 @@ void ResetQ(void* a);         /* transforma coada in coada vida */
 void DistrQ(void** aa);       /* elibereaza intregul spatiu ocupat de coada */
 size_t PrelQ(void* a, TF1 f); /* prelucreaza elementele, folosind functia f;
 								   rezultat = numarul de elemente pentru care f != 0 */
+int invC(void *q);
+void *oddID(void *queue,TF1 par);
 
 /* Operatii de deplasare in coada destinatie din coada sursa.
    Rezultat < 0 in caz de eroare (de exemplu dimensiunile elementelor difera),
