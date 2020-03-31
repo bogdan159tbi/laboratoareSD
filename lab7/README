@@ -1,3 +1,10 @@
 ---------------Stive si cozi implementate utilizand liste-------------------
 -- inserare extragere rastoarna reset distruge
 
+ordonare cresc in stiva folosind o stiva auxiliara si un void *tmp pt a retine informatia
+cat timp elem din varful stivei aux e mai mare decat topul stivei initiale le scot si le bag inapoi in stiva initiala
+dupa bag topul in stiva aux
+
+la coada am avut de implementat aflarea nr de insule ,elem care poate apartine insulei e egal cu P
+marcarea tuturor vecinilor pe care i strang n coada
+
